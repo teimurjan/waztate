@@ -19,7 +19,6 @@ export function useStore<T extends State, U>(
     const currentState = store.getState();
 
     if (selectorRef.current) {
-      // Only recompute if state changed
       if (currentState !== lastStateRef.current) {
         lastStateRef.current = currentState;
         lastValueRef.current = selectorRef.current(currentState);

@@ -4,7 +4,7 @@ export const initialState = {
   todos: Array.from({ length: 1000 * 1000 }, (_, i) => ({
     id: i + 1,
     text: `Todo item ${i + 1}`,
-    completed: false,
+    completed: i % 3 === 0,
   })),
   filter: "all" as Filter,
 };

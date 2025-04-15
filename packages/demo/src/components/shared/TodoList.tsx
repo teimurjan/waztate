@@ -43,6 +43,11 @@ export function TodoList({
   setActiveFilter,
   onToggleTodo,
 }: TodoListProps) {
+  const handleAddTodo = () => {
+    addTodo();
+    setNewTodo("");
+  };
+
   return (
     <div className="space-y-4">
       <Tabs
@@ -50,8 +55,8 @@ export function TodoList({
         className="mb-6"
         onValueChange={(value) => setActiveFilter(value as Filter)}
       >
-        <div className="flex justify-center mb-4">
-          <TabsList>
+        <div className="flex w-full">
+          <TabsList className="w-full">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
@@ -66,11 +71,11 @@ export function TodoList({
           onChange={(e) => setNewTodo(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              addTodo();
+              handleAddTodo();
             }
           }}
         />
-        <Button onClick={addTodo}>Add</Button>
+        <Button onClick={handleAddTodo}>Add</Button>
       </div>
 
       <div className="max-h-[300px]">

@@ -12,7 +12,7 @@ export function PerformanceMetrics({
   className = "",
 }: PerformanceMetricsProps) {
   return (
-    <Card className={`bg-muted/50 ${className}`}>
+    <Card className={className}>
       <CardContent className="p-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center gap-2">
