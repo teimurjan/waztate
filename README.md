@@ -11,68 +11,76 @@ A performant React state management library powered by WebAssembly (WASM) and Ru
 
 ## Project Structure
 
-This project consists of three main parts:
+This project consists of four main parts:
 
-1. **Rust Core**: The core state management logic written in Rust that compiles to WebAssembly
-2. **JavaScript API**: TypeScript wrapper with React hooks for easy integration
-3. **Demo App**: An example React application showcasing the library
+1. **Rust Core (`/rust`)**: The core state management logic written in Rust that compiles to WebAssembly
+2. **Core Library (`/packages/lib`)**: The main TypeScript library that provides core functionality
+3. **React Integration (`/packages/react`)**: React-specific hooks and utilities for easy integration
+4. **Demo App (`/packages/demo`)**: An example React application showcasing the library
 
 ## Installation
 
 > Note: This is a work in progress and not yet published to npm
 
 ```bash
-npm install waztate
+# Install core library
+npm install @waztate/lib
+
+# Install React integration
+npm install @waztate/react
 ```
+
+The library consists of two main packages:
+- `@waztate/lib`: Core state management functionality
+- `@waztate/react`: React hooks and utilities
 
 ## Usage
 
 ### Basic Example
 
 ```tsx
-import React, { useEffect } from 'react';
-import { createStore, useStore, setGlobalStore } from 'waztate';
+import React from 'react';
+import { createStore } from '@waztate/lib';
+import { useStore } from '@waztate/react';
 
-// Initialize store
-async function initStore() {
-  const store = await createStore({
-    initialState: {
-      counter: 0,
-      user: { name: 'Guest', loggedIn: false }
-    }
-  });
-  
-  // Set the global store so hooks can access it
-  setGlobalStore(store);
-}
+// Create a store with initial state
+const counterStore = createStore(() => ({
+  count: 0
+}), 'counter');
 
-// Initialize on app startup
-initStore();
+const userStore = createStore(() => ({
+  name: 'Guest',
+  loggedIn: false
+}), 'user');
 
 function Counter() {
-  // Use the store like useState, but synchronized with the global store
-  const [count, setCount] = useStore<number>('counter');
+  // Use the store with hooks
+  const count = useStore(counterStore);
   
   return (
     <div>
-      <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <h2>Count: {count.count}</h2>
+      <button onClick={() => counterStore.setState(state => ({ count: state.count + 1 }))}>
+        Increment
+      </button>
+      <button onClick={() => counterStore.setState(state => ({ count: state.count - 1 }))}>
+        Decrement
+      </button>
     </div>
   );
 }
 
 function UserProfile() {
-  const [user, setUser] = useStore('user');
+  const user = useStore(userStore);
   
   return (
     <div>
       <h2>User: {user.name}</h2>
       <button 
-        onClick={() => setUser({ 
-          ...user, 
-          loggedIn: !user.loggedIn 
-        })}
+        onClick={() => userStore.setState(state => ({ 
+          ...state, 
+          loggedIn: !state.loggedIn 
+        }))}
       >
         {user.loggedIn ? 'Logout' : 'Login'}
       </button>
@@ -84,11 +92,11 @@ function UserProfile() {
 ### Using Selectors
 
 ```tsx
-import { useStoreSelector } from 'waztate';
+import { useStoreSelector } from '@waztate/react';
 
 function UserLoginStatus() {
   // Only re-renders when the selected value changes
-  const isLoggedIn = useStoreSelector(state => state.user?.loggedIn || false);
+  const isLoggedIn = useStoreSelector(userStore, state => state.loggedIn);
   
   return (
     <div>
@@ -100,28 +108,33 @@ function UserLoginStatus() {
 
 ## Development
 
-### Building the Rust Core
+This is a monorepo managed with pnpm workspaces. To get started:
 
 ```bash
-cd rust
-wasm-pack build --release
+# Install pnpm if you haven't already
+npm install -g pnpm
+
+# Install dependencies
+pnpm install
+
+# Build the WASM module
+pnpm build:wasm
+
+# Build the core library
+pnpm build:lib
+
+# Build the React integration
+pnpm build:react
+
+# Run the demo app
+pnpm dev:demo
 ```
 
-### Building the JavaScript API
-
-```bash
-cd js
-npm install
-npm run build
-```
-
-### Running the Demo
-
-```bash
-cd demo
-npm install
-npm start
-```
+Each package can be built individually using the commands above. The build process follows this order:
+1. WASM module (from Rust code)
+2. Core library
+3. React integration
+4. Demo app
 
 ## License
 
