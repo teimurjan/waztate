@@ -52,7 +52,7 @@ export function TodoList({
     <div className="space-y-4">
       <Tabs
         value={activeFilter}
-        className="mb-6"
+        className="mb-2"
         onValueChange={(value) => setActiveFilter(value as Filter)}
       >
         <div className="flex w-full">
@@ -78,9 +78,9 @@ export function TodoList({
         <Button onClick={handleAddTodo}>Add</Button>
       </div>
 
-      <div className="max-h-[300px]">
+      <div className="h-[200px]">
         <FixedSizeList
-          height={300}
+          height={200}
           width="100%"
           itemCount={todos.length}
           itemSize={ITEM_SIZE}

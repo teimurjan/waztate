@@ -22,6 +22,7 @@ const todoSlice = createSlice({
         todo.completed = !todo.completed;
       }
     },
+    reset: () => initialState,
   },
 });
 

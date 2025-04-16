@@ -7,6 +7,7 @@ export const useTodoStore = create<
     setFilter: (filter: Filter) => void;
     addTodo: (text: string) => void;
     toggleTodo: (id: number) => void;
+    reset: () => void;
   }
 >((set) => ({
   ...initialState,
@@ -24,4 +25,5 @@ export const useTodoStore = create<
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       ),
     })),
+  reset: () => set(initialState),
 }));

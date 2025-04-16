@@ -24,9 +24,14 @@ export function useStore<T extends State, U>(
         lastValueRef.current = selectorRef.current(currentState);
       }
       return lastValueRef.current as U;
+    } else {
+      // Cache the current state when not using a selector too
+      if (currentState !== lastStateRef.current) {
+        lastStateRef.current = currentState;
+        lastValueRef.current = currentState;
+      }
+      return lastValueRef.current as T;
     }
-
-    return currentState;
   }, [store]);
 
   return useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);

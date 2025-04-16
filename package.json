@@ -7,7 +7,7 @@
     "demo"
   ],
   "scripts": {
-    "build:wasm": "wasm-pack build rust --scope waztate --out-dir ../packages/wasm --out-name index",
+    "build:wasm": "wasm-pack build rust --scope waztate --out-dir ../packages/wasm --out-name index --release",
     "build:lib": "pnpm run --filter @waztate/lib build",
     "build:react": "pnpm run --filter @waztate/react build",
     "dev:demo": "pnpm run --filter @waztate/demo dev",
