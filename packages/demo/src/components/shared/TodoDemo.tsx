@@ -3,17 +3,15 @@ import { Profiler } from "react";
 import { store } from "@/store/redux/store";
 import { useProfilerMetrics } from "@/hooks/useProfilerMetrics";
 import { ReduxTodoList } from "../redux/ReduxTodoList";
-import { WaztateTodoList } from "../waztate/WaztateTodoList";
+import { WaztateWasmTodoList } from "../waztate-wasm/WaztateWasmTodoList";
 import { ZustandTodoList } from "../zustand/ZustandTodoList";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ProfilerMetrics } from "./ProfilerMetrics";
+import { WaztateTodoList } from "../waztate/WaztateTodoList";
 
 const TodoDemo = () => {
+  const { metrics: waztateWasmMetrics, onRender: onRenderWaztateWasm } =
+    useProfilerMetrics("waztate-wasm");
   const { metrics: waztateMetrics, onRender: onRenderWaztate } =
     useProfilerMetrics("waztate");
   const { metrics: reduxMetrics, onRender: onRenderRedux } =
@@ -23,7 +21,7 @@ const TodoDemo = () => {
 
   return (
     <div className="flex items-center justify-center w-full gap-4">
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Redux</CardTitle>
         </CardHeader>
@@ -41,7 +39,23 @@ const TodoDemo = () => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
+        <CardHeader>
+          <CardTitle>Waztate WASM ⚡️</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ProfilerMetrics
+            className="mb-4 bg-green-300/20"
+            updateTime={waztateWasmMetrics.updateTime}
+            mountTime={waztateWasmMetrics.mountTime}
+          />
+          <Profiler id="waztate-wasm" onRender={onRenderWaztateWasm}>
+            <WaztateWasmTodoList />
+          </Profiler>
+        </CardContent>
+      </Card>
+
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Waztate ⚡️</CardTitle>
         </CardHeader>
@@ -57,7 +71,7 @@ const TodoDemo = () => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Zustand</CardTitle>
         </CardHeader>

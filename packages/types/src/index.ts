@@ -11,7 +11,7 @@ export type Value =
   | Value[]
   | { [K in PropertyKey]?: Value };
 
-type Updater<T extends State> = T | Partial<T> | ((state: T) => T | Partial<T>);
+export type Updater<T extends State> = T | Partial<T> | ((state: T) => T | Partial<T>);
 
 export interface StoreApi<T extends State> {
   getState: () => T;
@@ -19,4 +19,4 @@ export interface StoreApi<T extends State> {
   subscribe: (listener: (state: T) => void) => () => void;
 }
 
-export type Store<T extends State> = StoreApi<T>;
+export type Store<T extends State> = StoreApi<T>; 

@@ -1,5 +1,5 @@
 import { useSyncExternalStore, useRef, useCallback } from "react";
-import type { Store, State } from "@waztate/lib";
+import type { Store, State } from "@waztate/types";
 
 export function useStore<T extends State>(store: Store<T>): T;
 export function useStore<T extends State, U>(

@@ -24,14 +24,14 @@ This project consists of four main parts:
 
 ```bash
 # Install core library
-npm install @waztate/lib
+npm install @waztate/wasm-store
 
 # Install React integration
 npm install @waztate/react
 ```
 
 The library consists of two main packages:
-- `@waztate/lib`: Core state management functionality
+- `@waztate/wasm-store`: Core state management functionality
 - `@waztate/react`: React hooks and utilities
 
 ## Usage
@@ -40,7 +40,7 @@ The library consists of two main packages:
 
 ```tsx
 import React from 'react';
-import { createStore } from '@waztate/lib';
+import { createStore } from '@waztate/wasm-store';
 import { useStore } from '@waztate/react';
 
 // Create a store with initial state

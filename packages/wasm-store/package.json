@@ -1,5 +1,5 @@
 {
-  "name": "@waztate/lib",
+  "name": "@waztate/wasm-store",
   "version": "0.1.0",
   "description": "A performant WASM-based state management library for React",
   "type": "module",
@@ -25,9 +25,8 @@
   "author": "Waztate Team",
   "license": "MIT",
   "dependencies": {
-    "@types/react-window": "^1.8.8",
-    "@waztate/wasm": "workspace:*",
-    "react-window": "^1.8.11"
+    "@waztate/types": "workspace:*",
+    "@waztate/wasm": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

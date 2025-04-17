@@ -1,4 +1,4 @@
-import type { State, StateCreator, Store } from "./types";
+import type { State, StateCreator, Store } from "@waztate/types";
 import { StoreHandle, start } from "@waztate/wasm";
 
 /**

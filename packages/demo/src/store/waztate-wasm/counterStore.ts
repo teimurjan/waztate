@@ -1,4 +1,4 @@
-import { createStore } from "@waztate/store";
+import { createStore } from "@waztate/wasm-store";
 
 interface CounterState {
   value: number;

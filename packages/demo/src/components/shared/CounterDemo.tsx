@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { store } from "@/store/redux/store";
 import { ReduxCounter } from "../redux/ReduxCounter";
-import { WaztateCounter } from "../waztate/WaztateCounter";
+import { WaztateWasmCounter } from "../waztate-wasm/WaztateWasmCounter";
 import { ZustandCounter } from "../zustand/ZustandCounter";
 import {
   Card,
@@ -9,11 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { WaztateCounter } from "../waztate/WaztateCounter";
 
 const CounterDemo = () => {
   return (
     <div className="flex items-center justify-center w-full gap-4">
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Redux</CardTitle>
         </CardHeader>
@@ -24,7 +25,16 @@ const CounterDemo = () => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
+        <CardHeader>
+          <CardTitle>Waztate WASM ⚡️</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <WaztateWasmCounter />
+        </CardContent>
+      </Card>
+
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Waztate ⚡️</CardTitle>
         </CardHeader>
@@ -33,7 +43,7 @@ const CounterDemo = () => {
         </CardContent>
       </Card>
 
-      <Card className="flex-1/3">
+      <Card className="flex-1/4">
         <CardHeader>
           <CardTitle>Zustand</CardTitle>
         </CardHeader>

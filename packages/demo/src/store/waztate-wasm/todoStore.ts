@@ -1,4 +1,4 @@
-import { createStore } from "@waztate/store";
+import { createStore } from "@waztate/wasm-store";
 import { initialState } from "../shared";
 import { Filter, TodoState } from "../shared/types";
 
